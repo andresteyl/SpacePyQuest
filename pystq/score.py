@@ -5,6 +5,9 @@ from pystq.noise import *
 from pystq.materials import GetRoughnessLoss
 import scipy.integrate as integrate
 
+# scipy >= 1.14 removed simps in favour of simpson
+_simps = getattr(integrate, 'simps', None) or integrate.simpson
+
 
 def CalcComplex(detector):
    # Environment
@@ -180,7 +183,7 @@ class ScoreCalculator:
       f = np.logspace(f_1, f_2, num=self.nData)
       y = y_func(f)
 
-      I = integrate.simps(y, f)
+      I = _simps(y, x=f)
 
       return I
 
@@ -225,9 +228,9 @@ class ScoreCalculator:
       yn = yn_func(f)
       ys = ys_func(f)
 
-      In = integrate.simps(yn, f)
+      In = _simps(yn, x=f)
 
-      Is = integrate.simps(ys, f)
+      Is = _simps(ys, x=f)
 
       excess = max(0, Is - In)
 

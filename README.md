@@ -12,6 +12,17 @@ The Science Run option tool is a button, which returns a 'Score': the complexity
 
 There are slightly more complex ways of interacting with the game. Space Py Quest allows the user to add their own noise models if they wish, using the ScoreCalculator class's SetNoiseModels function, which is held in score.py. The new models can be written into a script, as examplified in userDefinedNoise.py. Alternatively, they can be automatically generated using functions defined in translate.py.
 
+## Finding the best design automatically
+`optimize.py` searches every site and mirror material for the parameters that give the highest Total Range score while keeping the cost within the site budget and the complexity within the site's credits (so no detections are missed). Run it from the repository folder:
+
+```
+python optimize.py                                  # search everything (takes several minutes)
+python optimize.py --site Jungle --material Silicon # search one combination
+python optimize.py --help                           # all options
+```
+
+It prints a ranking of all combinations and a parameter dictionary for the best design that can be pasted into the notebook.
+
 ## Prerequisites
 Space Py Quest should be run with Python versions at or above 3.5.4, and with the Bokeh package at version 0.12.9 or above. 
 
